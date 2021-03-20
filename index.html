@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="plotly-latest.min.js"></script>
+    <title>Scratch</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="printedCont">
+      total tickets printed this session:
+      <div class="printed"></div>
+    </div>
+    <div class="realOuter">
+      <div class="btn-cont">
+        <button id="reset" class="btn">New ticket</button>
+        <button id="autoplay" class="btn">Simulate</button>
+        <button id="stop" class="btn">Stop</button>
+        <button id="final" class="btn">Final Data</button>
+      </div>
+      <div class="outer">
+        <div class="cont">
+          <div id="a0"></div>
+          <div id="a1"></div>
+          <div id="a2"></div>
+          <div id="a3"></div>
+          <div id="a4"></div>
+          <div id="a5"></div>
+          <div id="a6"></div>
+          <div id="a7"></div>
+          <div id="a8"></div>
+        </div>
+        <div class="grid">
+          <div class="serial"></div>
+        </div>
+      </div>
+      <div class="results">
+        <br />
+        <div class="resultCont">
+          Winnings so far:
+          <div class="profit"></div>
+        </div>
+        <br />
+        <div class="resultCont">
+          You have spent:
+          <div class="loss"></div>
+        </div>
+        <div class="resultCont">
+          Current payoff:
+          <div class="payoff"></div>
+        </div>
+      </div>
+      <div id="box"></div>
+      <div id="pie"></div>
+    </div>
+    <script src="firstTry1.js"></script>
+  </body>
+</html>
