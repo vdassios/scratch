@@ -46,7 +46,7 @@ body {
 }
 .realOuter {
   display: grid;
-  grid-template-columns: 1000px 550px auto; 
+  grid-template-columns: 1000px 550px 800px; 
   grid-template-rows: 350px 30px 500px;
 }
 #pie {
@@ -92,7 +92,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   /* relative to outer grid */
-  background-position: 1292px 77.2px;
+  background-position: 1292px 75.3px; 
+  /* background-position: 77.8% 16.5%; */
   /* initial position */
   /*background-position: 290.9px 80.5px;*/
   z-index: 2;
