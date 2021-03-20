@@ -1,5 +1,7 @@
 # Scratch ticket simulator
 
+[Play here](https://vdassios.github.io/scratch/)
+
 An online simulation of OPAP's [Flying Donkey](https://www.scratch.gr/en/index#petaeiogaidaros)
 
 Everything was built from zero using only these two pngs
