@@ -2,6 +2,10 @@
 
 An online simulation of OPAP's [Flying Donkey](https://www.scratch.gr/en/index#petaeiogaidaros)
 
+Everything was built from zero using only these two pngs
+
+![front cover](cover_front_1.jpg "front") ![back cover](cover_front_2.jpg "back")
+
 Generates an arbitrary amount of tickets, ranging from 4 to 4.5 million.
 Offers user interactivity & automated playability while visualizing
 all the data thus generated.
@@ -17,4 +21,5 @@ all the data thus generated.
 
 For educational use only.
 
-Everything was built from zero using only these two png's
+The probability model is based on the following public data
+![prob](distribution.png)
