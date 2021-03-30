@@ -1,4 +1,4 @@
-const grid = document.querySelector(".grid");
+const grid = document.querySelector(".blank");
 const final = document.querySelector("#final");
 const reset = document.querySelector("#reset");
 const root = document.documentElement;
@@ -105,7 +105,6 @@ let rand = (n) => Math.floor(Math.random() * n);
 //requests to play
 
 //populate the scratchable layer
-// 300 cells for now
 // care to change cell width in css if
 // you plan to mess with this
 //to be used with caution in the autoplay function
@@ -113,7 +112,7 @@ let rand = (n) => Math.floor(Math.random() * n);
 function gridView(toggle) {
   if (toggle === 1) {
     //add grid to DOM
-    for (let j = 0; j < 299; j++) {
+    for (let j = 0; j < 15 * 25; j++) {
       let cell = document.createElement("div");
       cell.id = `${j}`; //give each cell a unique ID serving as a coordinate
       cell.className = "cell";
@@ -228,33 +227,50 @@ let ticketIdx = 0;
 //winning positions as numbers
 //completely unecessary, only for readability
 let wp = [];
+//coordinates according to viewport
 //this can also be a 2d array
 //object for now for readability
-//original coarser grid coordinates
-//keeping this just in case
-//let coord = {
-//  0: [58, 59, 81, 82],
-//  1: [61, 62, 84, 85],
-//  2: [64, 65, 87, 88],
-//  3: [104, 105, 127, 128],
-//  4: [107, 108, 130, 131],
-//  5: [110, 111, 133, 134],
-//  6: [150, 151, 173, 174],
-//  7: [153, 154, 176, 177],
-//  8: [156, 157, 179, 180],
-//};
-let coord = {
-  0: [58, 59],
-  1: [61, 62],
-  2: [64, 65],
-  3: [104, 105],
-  4: [107, 108],
-  5: [110, 111],
-  6: [150, 151],
-  7: [153, 154],
-  8: [156, 157],
+//in ascending order of screen width
+//1 - 1440px, 2 - 1920px , 3 - 3840px
+//
+
+//
+//
+let coord1 = {
+  0: [60, 61],
+  1: [63, 64],
+  2: [66, 67],
+  3: [110, 111],
+  4: [113, 114],
+  5: [116, 117],
+  6: [160, 161],
+  7: [163, 164],
+  8: [166, 167],
 };
 
+let coord2 = {
+  0: [61, 62],
+  1: [65, 66],
+  2: [68, 69],
+  3: [111, 112],
+  4: [115, 116],
+  5: [118, 119],
+  6: [161, 162],
+  7: [165, 166],
+  8: [168, 169],
+};
+
+let coord3 = {
+  0: [57, 58],
+  1: [59, 60],
+  2: [62, 63],
+  3: [107, 108],
+  4: [109, 110],
+  5: [112, 113],
+  6: [157, 158],
+  7: [159, 160],
+  8: [162, 163],
+};
 //this basically puts togethere the graphic of the ticket
 function generateTicket() {
   let t = ticketStore[ticketIdx];
@@ -306,8 +322,9 @@ function generateTicket() {
 //
 //hover tracking illusion
 //only target grid cells
+
 grid.addEventListener("mouseover", function (e) {
-  if (e.target && e.target.className === "cell") {
+  if (e.target.className === "cell") {
     e.target.style.opacity = 0;
   }
 });
@@ -354,21 +371,62 @@ function updateText() {
   payoff.textContent = `${((profitCount / ticketIdx) * 100).toFixed(2)} %`;
 }
 
-//this checks scratching patterns
-//fires a msg on revealing the 3rd winning entry
-//or on the final block if the ticket is not a winner
-//updates charts & text accordingly
+//
+// NEED TO FIGURE OUT A BETTER, RESPONSIVE-FRIENDLY APPROACH.
+//
+// /
+//
+
+//media queries for main desktop viewports
+const res1 = window.matchMedia("(min-width: 1440px)");
+const res2 = window.matchMedia("(min-width: 1920px)");
+const res3 = window.matchMedia("(min-width: 3840px)");
+
+//new approach
+let res = `(min-width: ${window.screen.width}px)`;
+
+//tie coords with resolutions
+let coordList = { 1440: coord1, 1920: coord2, 3840: coord3 };
+//dummy var for current coordinate in use
+let currentCoord = coord1;
+
+//callback for eventlistener
+function screenCheck() {
+  if (res3.matches) {
+    currentCoord = coord3;
+  } else if (res2.matches) {
+    currentCoord = coord2;
+  } else if (res1.matches) {
+    currentCoord = coord1;
+  }
+}
+
+//run viewport change handler once
+screenCheck();
+
+//listen in to update coords accordingly
+
+grid.addEventListener("mouseover", function (e) {
+  hoverCheck(e, currentCoord);
+});
+
+//define hover tracking callback, checks when the user
+//has releaved a sufficient portion of the scratched value
+//and, if on a winning ticket, alerts msg & updates graphs
+//accordingly only when the third winning value is revelead
 //tried to listen on the whole grid & use delegation
 //dunnon how optimal this is
-grid.addEventListener("mouseover", function (e) {
-  if (wp.length && wflags[9][0] !== 2) {
-    if (e.target) {
+//
+
+function hoverCheck(e, currentCoord) {
+  if (currentCoord) {
+    if (wp.length && wflags[9][0] !== 2) {
       //listen in on winners being hovered
       for (let i = 0; i < 3; i++) {
-        if (coord[wp[i]][0] === e.target.id * 1) {
+        if (currentCoord[wp[i]][0] === e.target.id * 1) {
           wflags[i][0] = 1;
         }
-        if (coord[wp[i]][1] === e.target.id * 1) {
+        if (currentCoord[wp[i]][1] === e.target.id * 1) {
           wflags[i][1] = 1;
         }
       }
@@ -389,15 +447,14 @@ grid.addEventListener("mouseover", function (e) {
         wflags[9][0] = 2;
         wp = [];
       }
-    }
-    //same exact logic, but for losing tickets
-  } else if (!wp.length && lflags[9][0] !== 2) {
-    if (e.target) {
+      //same exact logic, but for losing tickets
+    } else if (!wp.length && lflags[9][0] !== 2) {
       for (let i = 0; i < 9; i++) {
-        if (coord[i][0] === e.target.id * 1) {
+        //we don't really need to have the losing condition this detailed
+        if (currentCoord[i][0] === e.target.id * 1) {
           lflags[i][0] = 1;
         }
-        if (coord[i][1] === e.target.id * 1) {
+        if (currentCoord[i][1] === e.target.id * 1) {
           lflags[i][1] = 1;
         }
       }
@@ -410,7 +467,7 @@ grid.addEventListener("mouseover", function (e) {
       }
     }
   }
-});
+}
 //
 //
 //
@@ -621,8 +678,10 @@ let totalProfit =
   200 * finalObj[200] +
   10000 * finalObj[10000];
 
+let config = { responsive: true };
+
 const layout = {
-  title: "Distribution of winners",
+  title: "Distribution of winning values",
   font: {
     family: "Raleway, sans-serif",
   },
@@ -649,7 +708,7 @@ let barDataTr = {
   },
 };
 const barData = [barDataTr];
-Plotly.newPlot("box", barData, layout);
+Plotly.newPlot("box", barData, layout, config);
 
 //plot the final bar tally
 let traceF = {
@@ -673,23 +732,50 @@ const barFData = [traceF];
 //initial pie data
 const pieData = [
   {
+    title: {
+      text: "Outcomes",
+      font: {
+        family: "sans-serif",
+        size: 20,
+      },
+    },
     values: [ticketTrack["winningTickets"], ticketTrack["losingTickets"]],
     labels: ["At least one winner", "No winner"],
-
+    //insidetextfont: {size: },
+    textposition: "inside",
+    insidetextorientation: "tangential",
+    textinfo: "label+percent",
+    hoverinfo: "value",
     type: "pie",
     marker: {
       colors: ["rgba(206,32, 83, 0.8)", "rgb(143,124,195)"],
       opacity: 0.6,
+
+      line: {
+        width: 1,
+        color: "#fff",
+      },
+      automargin: false,
     },
   },
 ];
-
 const pieLayout = {
-  height: 600,
-  width: 600,
+  autosize: true,
+  showlegend: false,
+  width: 400,
+  height: 400,
+  font: {
+    family: "sans-serif",
+    size: 12,
+    color: "#000",
+  },
 };
+//const pieLayout = {
+//  height: 500,
+//  width: 500,
+//};
 
-Plotly.newPlot("pie", pieData, pieLayout);
+Plotly.newPlot("pie", pieData, pieLayout, config);
 //final pie chart
 const pieFData = [
   {
@@ -778,9 +864,9 @@ function updateBar() {
 // display the final stats
 function finalData() {
   //bar final
-  Plotly.newPlot("box", barFData, layout);
+  Plotly.newPlot("box", barFData, layout, config);
   //pie final
-  Plotly.newPlot("pie", pieFData, pieLayout);
+  Plotly.newPlot("pie", pieFData, pieLayout, config);
   //update the final text values
   profit.textContent = numberWithCommas(totalProfit) + " euros";
   loss.textContent = numberWithCommas(ticketTotal) + " euros";

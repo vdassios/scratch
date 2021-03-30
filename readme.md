@@ -19,6 +19,18 @@ all the data thus generated.
 - Press the **simulate** button and the computer plays for you, one ticket per 5ms.
 - Click on **final data** to see the end results for the given ticket series.
 
+On each page reload a new ticket series prints a random amount of tickets between
+4 and 4.5 million.
+
+The bar chart plots each individual prizes' probability to occur, while the pie
+chart tracks the % of tickets with a winning value occuring versus those that
+simply lose. The chance to draw a winning ticket is roughly 21%.
+
+You can see these values update in real time for a given ticket series
+as you play manually, or by using the simulation button to simulate about
+10000 ticket outcomes.
+The final data button reveals the final tally of the whole series.
+
 ## Disclaimer
 
 For educational use only.

@@ -1,0 +1,209 @@
+html {
+  font-family: "Raleway, sans-serif;" 
+}
+ body { 
+  width: 100%;
+  overflow: hidden;
+  margin: 0px;
+}
+
+/*
+ * {
+  box-sizing: border-box;
+}
+*/
+:root {
+  --pic0: 
+  --pic1: 
+  --pic2: 
+  --pic3: 
+  --pic4: 
+  --pic5: 
+  --pic6: 
+  --pic7: 
+  --pic8: 
+}
+
+.a {
+display: inline-flex;
+width: 100%;
+height: 100%;
+}
+.printedCont{
+ display: grid;
+ grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+ grid-template-columns: auto;
+}
+.printed {
+  margin-left: 2%;
+  font: 90%;
+}
+
+.loss, .profit, .payoff, .printed {
+  margin-left: 2%;
+  color: red;
+}
+
+.btn-cont{
+  width: 100%;
+  height: auto;
+}
+
+.resultCont {
+  font-size: 90%;
+}
+.results {
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  margin-top: 2%;
+  height: auto;
+}
+
+
+.ticketCont {
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+
+}
+
+.blank {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-image: url("blankBase.png");
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(25, 4%);
+  grid-template-rows: repeat(15, 6%);
+}
+
+.serial {
+  position: absolute;
+  top: 60%;
+  left: 62%;
+  font-weight: 600;
+  font-size: 85%;
+}
+
+.cont {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 40%;
+  height: 35%;
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  z-index: 2;
+}
+
+@media only screen and (min-width: 1440px) {
+  .cont {
+    right: 25%;
+    width: 35%;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .cont {
+    right: 16%;
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .cont {
+    right: 43%;
+    width: 29%;
+  }
+  .serial{
+    left: 41%;
+  }
+}
+
+#box {
+  width:100%;
+  height: 100%;
+}
+
+#pie  {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -20%;
+}
+
+.cell {
+  background-image: url("toHoverTrans.png");
+  background-position: inherit;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: 3;
+}
+
+
+#a0 {
+  background: var(--pic0);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+#a1 {
+  background: var(--pic1);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a2 {
+  background: var(--pic2);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a3 {
+  background: var(--pic3);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a4 {
+  background: var(--pic4);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#a5 {
+  background: var(--pic5);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a6 {
+  background: var(--pic6);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a7 {
+  background: var(--pic7);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a8 {
+  background: var(--pic8);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/*
+.one {
+  z-index: -1;
+}
+*/
